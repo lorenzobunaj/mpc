@@ -10,7 +10,7 @@ class Sender:
 
         self.S_inputs = []
 
-        self.K_s = [int.from_bytes(os.urandom(1), byteorder="big") % 2 for _ in range(l)]  # random vector s
+        self.KOT_s = [int.from_bytes(os.urandom(1), byteorder="big") % 2 for _ in range(l)]  # random vector s
         self.kc = None
         self.Q = None
 
@@ -19,7 +19,7 @@ class Sender:
             self.S_inputs.append(S_inputs[i])
 
     def KOT_send(self):
-        return self.K_s
+        return self.KOT_s
     
     def KOT_receive(self, kc):
         self.kc = kc
@@ -31,7 +31,7 @@ class Sender:
 
         Qt = [
             bytes(
-                [((self.K_s[i] * u[i][j]) ^ PRG(self.kc[i], self.m)[j])
+                [((self.KOT_s[i] * u[i][j]) ^ PRG(self.kc[i], self.m)[j])
                 for j in range(self.m)]
             )
             for i in range(self.l)
@@ -56,7 +56,7 @@ class Sender:
             x0_j, x1_j = self.S_inputs[j]
 
             h0 = CR_HASH(j, qj, self.n // 8)
-            h1 = CR_HASH(j, xor(qj, self.K_s, self.l), self.n // 8)
+            h1 = CR_HASH(j, xor(qj, self.KOT_s, self.l), self.n // 8)
 
             y0.append(xor(x0_j, h0, self.n // 8))
             y1.append(xor(x1_j, h1, self.n // 8))

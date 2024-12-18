@@ -10,7 +10,7 @@ class Receiver:
 
         self.R_inputs = []
 
-        self.K_seeds = [(os.urandom(K // 8), os.urandom(K // 8)) for _ in range(l)]  # seeds for K-OT
+        self.KOT_seeds = [(os.urandom(K // 8), os.urandom(K // 8)) for _ in range(l)]  # seeds for K-OT
         self.T = None
 
         self.last_results = None
@@ -20,15 +20,15 @@ class Receiver:
             self.R_inputs.append(R_inputs[i])
 
     def KOT_send(self):
-        return self.K_seeds
+        return self.KOT_seeds
 
     def send_u(self, PRG):
         """
         Compute u and send it to the sender.
         """
 
-        Tt = [PRG(self.K_seeds[i][0], self.m) for i in range(self.l)]
-        u = [xor(xor(Tt[i], PRG(self.K_seeds[i][1], self.m), self.m), self.R_inputs, self.m) for i in range(self.l)]
+        Tt = [PRG(self.KOT_seeds[i][0], self.m) for i in range(self.l)]
+        u = [xor(xor(Tt[i], PRG(self.KOT_seeds[i][1], self.m), self.m), self.R_inputs, self.m) for i in range(self.l)]
 
         self.T = list(zip(*Tt))
 
