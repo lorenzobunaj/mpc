@@ -22,7 +22,7 @@ class Receiver:
     def KOT_send(self):
         return self.KOT_seeds
 
-    def send_u(self, PRG):
+    def send_u(self, PRG, PRG2):
         """
         Compute u and send it to the sender.
         """
@@ -32,9 +32,9 @@ class Receiver:
 
         self.T = list(zip(*Tt))
 
-        # print(self.T)
+        RTt = [PRG2(Tt[i], self.m) for i in range(self.l)]
         
-        return u
+        return [RTt, u]
 
     def receive_masked_messages(self, y0, y1, CR_HASH):
         """

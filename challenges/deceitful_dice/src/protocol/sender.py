@@ -1,6 +1,5 @@
 from utils import xor
 import os
-from z3 import *
 
 class Sender:
     def __init__(self, K, l, m, n):
@@ -18,6 +17,9 @@ class Sender:
         self.kc = None
         self.Q = None
 
+        print("s:")
+        print(self.KOT_s)
+
     def new_inputs(self, S_inputs):
         for i in range(self.m):
             self.S_inputs.append(S_inputs[i])
@@ -31,10 +33,15 @@ class Sender:
 
         self.kc = kc
 
-    def receive_u(self, u, PRG):
+    def receive_u(self, RT_u, PRG):
         """
         Receive u and use it to compute Q
         """
+
+        [RTt, u] = RT_u
+
+        print("RTt:")
+        print(RTt)
 
         print("U:")
         print(u)

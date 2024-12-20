@@ -1,7 +1,7 @@
 from protocol.sender import Sender
 from protocol.receiver import Receiver
 
-def OT_sh_protocol(K, l, n, m, S_inputs, R_inputs, KOT, PRG, CR_HASH):
+def OT_sh_protocol(K, l, n, m, S_inputs, R_inputs, KOT, PRG, PRG2, CR_HASH):
     S = Sender(K, l, m, n)
     R = Receiver(K, l, m, n)
 
@@ -10,7 +10,7 @@ def OT_sh_protocol(K, l, n, m, S_inputs, R_inputs, KOT, PRG, CR_HASH):
 
     KOT(R.KOT_send, S.KOT_send, S.KOT_receive)
 
-    S.receive_u(R.send_u(PRG), PRG)
+    S.receive_u(R.send_u(PRG, PRG2), PRG)
 
     R.receive_masked_messages(*S.send_masked_messages(CR_HASH), CR_HASH)
 
