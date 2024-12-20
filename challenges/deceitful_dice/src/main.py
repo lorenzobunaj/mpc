@@ -15,10 +15,7 @@ def main():
     m = 8 * LEN_FLAG
 
     S_inputs = [(os.urandom(n // 8), os.urandom(n // 8)) for _ in range(m)]
-    R_inputs = [(ord(c) >> i) & 1 for i in reversed(range(8)) for c in FLAG]
-
-    with open("output.txt", "a") as file:
-        file.write("\n########################################\n")
+    R_inputs = [(ord(c) >> i) & 1 for c in FLAG for i in reversed(range(8))]
 
     OT_sh_protocol(K, l, n, m, S_inputs, R_inputs, KOT, PRG, PRG_more_random, CR_HASH)
 
