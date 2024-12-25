@@ -4,7 +4,7 @@ def PRG(seed, m):
     """
     Pseudorandom generator using SHA256.
 
-    PRG : {0, 1}^K -> {0, 1}^(m + r)
+    PRG : {0, 1}^K -> {0, 1}^m
     """
     output = b""
     while len(output) < m:
