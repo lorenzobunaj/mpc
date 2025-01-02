@@ -1,11 +1,8 @@
+def xor2(a, b, l):
+    return bytes([a[k] ^ b[k] for k in range(l)])
+
 def xor(l, *args):
-    xored_args = []
-
-    for _ in range(l):
-        res = 0
-        for arg in args:
-            res ^= arg
-
-        xored_args.append(res)
-
-    return bytes(xored_args)
+    if len(args) == 2:
+        return xor2(args[0], args[1])
+    else:
+        return xor(l, xor2(args[0], args[1]), *args[2:])
