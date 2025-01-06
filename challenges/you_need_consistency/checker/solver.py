@@ -1,5 +1,4 @@
 from Crypto.Cipher import AES
-from Crypto.Util.Padding import pad
 
 def xor(a, b, l):
     return bytes([a[k] ^ b[k] for k in range(l)])
